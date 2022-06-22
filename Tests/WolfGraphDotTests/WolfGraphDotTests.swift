@@ -9,25 +9,32 @@ final class WolfGraphDotTests: XCTestCase {
             .withNodeData("Z")
         {
             $0.label = "Zebra"
-            $0.shape = "pentagon"
+            $0.shape = .pentagon
         }
         .withNodeData("A") {
-            $0.color = "red"
+            $0.color = .red
         }
         .withNodeData("J") {
-            $0.style = "filled"
+            $0.style = .filled
         }
         .withEdgeData("AZ") {
             $0.label = "Green"
-            $0.color = "green"
+            $0.color = .green
         }
         .withEdgeData("JA") {
-            $0.style = "bold"
+            $0.style = .bold
         }
         .withEdgeData("AC") {
             $0.arrowDirection = .both
         }
-        
+        .withEdgeData("IK") {
+            $0.arrowHead = .box
+        }
+        .withEdgeData("IC") {
+            $0.arrowDirection = .both
+            $0.arrowTail = "olboxrbox"
+        }
+
         print(graph.dotFormat)
     }
 }

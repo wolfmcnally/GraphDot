@@ -19,56 +19,29 @@ public extension DotEncodable {
 public extension DotEncodable {
     var dotFormat: String {
         var result: [String] = []
-        
-        func attribute(name: String, value: String) -> String {
-            """
-            [\(name)="\(value)"]
-            """
-        }
 
         result.append("digraph G {")
         
         for node in nodes {
-            let attributes = dotNodeAttributes(node)
-            var line: [String] = ["\t"]
-            line.append(node.description)
-            if let label = attributes?.label {
-                line.append(attribute(name: "label", value: label))
+            var lineComponents: [String] = ["\t"]
+            lineComponents.append(node.description)
+            lineComponents.append(" ")
+            if let attributes = dotNodeAttributes(node)?.attributes {
+                lineComponents.append(attributes)
             }
-            if let color = attributes?.color {
-                line.append(attribute(name: "color", value: color))
-            }
-            if let style = attributes?.style {
-                line.append(attribute(name: "style", value: style))
-            }
-            if let shape = attributes?.shape {
-                line.append(attribute(name: "shape", value: shape))
-            }
-            line.append(";")
-            result.append(line.joined())
+            result.append(lineComponents.joined())
         }
         
         for edge in edges {
-            var line: [String] = ["\t"]
-            try! line.append(edgeTail(edge).description)
-            line.append(" -> ")
-            try! line.append(edgeHead(edge).description)
-            if let attributes = dotEdgeAttributes(edge) {
-                if let label = attributes.label {
-                    line.append(attribute(name: "label", value: label))
-                }
-                if let color = attributes.color {
-                    line.append(attribute(name: "color", value: color))
-                }
-                if let style = attributes.style {
-                    line.append(attribute(name: "style", value: style))
-                }
-                if let dir = attributes.arrowDirection {
-                    line.append(attribute(name: "dir", value: dir.rawValue))
-                }
+            var lineComponents: [String] = ["\t"]
+            try! lineComponents.append(edgeTail(edge).description)
+            lineComponents.append(" -> ")
+            try! lineComponents.append(edgeHead(edge).description)
+            lineComponents.append(" ")
+            if let attributes = dotEdgeAttributes(edge)?.attributes {
+                lineComponents.append(attributes)
             }
-            line.append(";")
-            result.append(line.joined())
+            result.append(lineComponents.joined())
         }
         
         result.append("}")
