@@ -15,8 +15,12 @@ struct DotTestGraph: EditableGraph, JSONCodable {
         innerGraph = InnerGraph()
     }
     
-    init(_ innerGraph: InnerGraph) {
+    private init(innerGraph: InnerGraph) {
         self.innerGraph = innerGraph
+    }
+    
+    func copySettingInnerGraph(_ innerGraph: InnerGraph) -> Self {
+        Self(innerGraph: innerGraph)
     }
 
     init(edges: [(String, String, String)]) throws {
