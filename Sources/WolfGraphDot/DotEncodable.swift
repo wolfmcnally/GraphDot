@@ -2,25 +2,18 @@ import Foundation
 import WolfGraph
 
 public protocol DotEncodable: ViewableGraph {
-    func dotNodeLabel(_ node: NodeID) -> String?
-    func dotNodeColor(_ node: NodeID) -> String?
-    func dotNodeStyle(_ node: NodeID) -> String?
-    func dotNodeShape(_ node: NodeID) -> String?
-
-    func dotEdgeLabel(_ edge: EdgeID) -> String?
-    func dotEdgeColor(_ edge: EdgeID) -> String?
-    func dotEdgeStyle(_ edge: EdgeID) -> String?
+    func dotNodeAttributes(_ node: NodeID) -> NodeAttributes?
+    func dotEdgeAttributes(_ edge: EdgeID) -> EdgeAttributes?
 }
 
 public extension DotEncodable {
-    func dotNodeLabel(_ node: NodeID) -> String? { nil }
-    func dotNodeColor(_ node: NodeID) -> String? { nil }
-    func dotNodeStyle(_ node: NodeID) -> String? { nil }
-    func dotNodeShape(_ node: NodeID) -> String? { nil }
-
-    func dotEdgeLabel(_ edge: EdgeID) -> String? { nil }
-    func dotEdgeColor(_ edge: EdgeID) -> String? { nil }
-    func dotEdgeStyle(_ edge: EdgeID) -> String? { nil }
+    func dotNodeAttributes(_ node: NodeID) -> NodeAttributes? {
+        nil
+    }
+    
+    func dotEdgeAttributes(_ edge: EdgeID) -> EdgeAttributes? {
+        nil
+    }
 }
 
 public extension DotEncodable {
@@ -36,18 +29,19 @@ public extension DotEncodable {
         result.append("digraph G {")
         
         for node in nodes {
+            let attributes = dotNodeAttributes(node)
             var line: [String] = ["\t"]
             line.append(node.description)
-            if let label = dotNodeLabel(node) {
+            if let label = attributes?.label {
                 line.append(attribute(name: "label", value: label))
             }
-            if let color = dotNodeColor(node) {
+            if let color = attributes?.color {
                 line.append(attribute(name: "color", value: color))
             }
-            if let style = dotNodeStyle(node) {
+            if let style = attributes?.style {
                 line.append(attribute(name: "style", value: style))
             }
-            if let shape = dotNodeShape(node) {
+            if let shape = attributes?.shape {
                 line.append(attribute(name: "shape", value: shape))
             }
             line.append(";")
@@ -59,14 +53,19 @@ public extension DotEncodable {
             try! line.append(edgeTail(edge).description)
             line.append(" -> ")
             try! line.append(edgeHead(edge).description)
-            if let label = dotEdgeLabel(edge) {
-                line.append(attribute(name: "label", value: label))
-            }
-            if let color = dotEdgeColor(edge) {
-                line.append(attribute(name: "color", value: color))
-            }
-            if let style = dotEdgeStyle(edge) {
-                line.append(attribute(name: "style", value: style))
+            if let attributes = dotEdgeAttributes(edge) {
+                if let label = attributes.label {
+                    line.append(attribute(name: "label", value: label))
+                }
+                if let color = attributes.color {
+                    line.append(attribute(name: "color", value: color))
+                }
+                if let style = attributes.style {
+                    line.append(attribute(name: "style", value: style))
+                }
+                if let dir = attributes.arrowDirection {
+                    line.append(attribute(name: "dir", value: dir.rawValue))
+                }
             }
             line.append(";")
             result.append(line.joined())

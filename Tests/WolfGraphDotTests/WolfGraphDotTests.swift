@@ -24,6 +24,9 @@ final class WolfGraphDotTests: XCTestCase {
         .withEdgeData("JA") {
             $0.style = "bold"
         }
+        .withEdgeData("AC") {
+            $0.arrowDirection = .both
+        }
         
         print(graph.dotFormat)
     }

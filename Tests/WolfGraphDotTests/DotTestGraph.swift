@@ -5,8 +5,8 @@ import WolfGraphDot
 struct DotTestGraph: EditableGraph, JSONCodable {
     typealias NodeID = String
     typealias EdgeID = String
-    typealias NodeData = DotAttributes
-    typealias EdgeData = DotAttributes
+    typealias NodeData = NodeAttributes
+    typealias EdgeData = EdgeAttributes
 
     typealias InnerGraph = Graph<NodeID, EdgeID, NodeData, EdgeData>
     let innerGraph: InnerGraph
@@ -105,32 +105,11 @@ extension DotTestGraph {
 }
 
 extension DotTestGraph: DotEncodable {
-    func dotNodeLabel(_ node: NodeID) -> String? {
-        try! nodeData(node).label
+    func dotNodeAttributes(_ node: String) -> NodeAttributes? {
+        try! nodeData(node)
     }
     
-    func dotNodeColor(_ node: NodeID) -> String? {
-        try! nodeData(node).color
-    }
-    
-    func dotNodeStyle(_ node: NodeID) -> String? {
-        try! nodeData(node).style
-    }
-    
-    func dotNodeShape(_ node: NodeID) -> String? {
-        try! nodeData(node).shape
-    }
-
-    
-    func dotEdgeLabel(_ edge: EdgeID) -> String? {
-        try! edgeData(edge).label
-    }
-    
-    func dotEdgeColor(_ edge: EdgeID) -> String? {
-        try! edgeData(edge).color
-    }
-    
-    func dotEdgeStyle(_ edge: EdgeID) -> String? {
-        try! edgeData(edge).style
+    func dotEdgeAttributes(_ edge: String) -> EdgeAttributes? {
+        try! edgeData(edge)
     }
 }
