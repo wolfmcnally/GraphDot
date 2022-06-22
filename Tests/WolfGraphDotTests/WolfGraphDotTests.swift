@@ -27,6 +27,9 @@ final class WolfGraphDotTests: XCTestCase {
         .withEdgeData("AC") {
             $0.arrowDirection = .both
         }
+        .withEdgeData("BA") {
+            $0.style = .bold
+        }
         .withEdgeData("IK") {
             $0.arrowHead = .box
         }
