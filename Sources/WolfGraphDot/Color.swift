@@ -4,10 +4,10 @@ import WolfBase
 // https://graphviz.org/doc/info/colors.html
 
 public struct Color: Codable, Hashable {
-    let schemeName: String?
-    let colorName: String
+    public let schemeName: String?
+    public let colorName: String
     
-    var fullColorName: String {
+    public var fullColorName: String {
         var components: [String] = []
         if let schemeName {
             components.append(contentsOf: ["", schemeName])
@@ -16,7 +16,7 @@ public struct Color: Codable, Hashable {
         return components.joined(separator: "/")
     }
     
-    init(r: UInt8, g: UInt8, b: UInt8, a: UInt8? = nil) {
+    public init(r: UInt8, g: UInt8, b: UInt8, a: UInt8? = nil) {
         self.schemeName = nil
         let components = [r, g, b, a].compactMap { $0?.hex }.joined()
         self.colorName = "#" + components
