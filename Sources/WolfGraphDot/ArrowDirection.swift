@@ -1,6 +1,6 @@
 import Foundation
 
-public enum ArrowDirection: String, Codable {
+public enum ArrowDirection: String {
     case forward
     case back
     case both

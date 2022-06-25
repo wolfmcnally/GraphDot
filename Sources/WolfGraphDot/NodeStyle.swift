@@ -1,6 +1,6 @@
 import Foundation
 
-public enum NodeStyle: String, Codable {
+public enum NodeStyle: String {
     case dashed
     case dotted
     case solid

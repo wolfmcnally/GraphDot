@@ -2,7 +2,7 @@ import Foundation
 import WolfGraph
 import WolfGraphDot
 
-struct DotTestGraph: EditableGraph, JSONCodable {
+struct DotTestGraph: EditableGraph {
     typealias NodeID = String
     typealias EdgeID = String
     typealias NodeData = NodeAttributes

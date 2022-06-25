@@ -3,7 +3,7 @@ import WolfBase
 
 // https://graphviz.org/doc/info/colors.html
 
-public struct Color: Codable, Hashable {
+public struct Color: Hashable {
     public let schemeName: String?
     public let colorName: String
     
