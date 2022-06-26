@@ -1,6 +1,9 @@
 import XCTest
 import WolfGraphDot
 
+// Docs: https://graphviz.org/doc/info/lang.html
+// Editor: http://magjac.com/graphviz-visual-editor/
+
 final class WolfGraphDotTests: XCTestCase {
     func testDot() throws {
         let graph = try DotTestGraph.makeDAG()
