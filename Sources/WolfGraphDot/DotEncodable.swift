@@ -21,9 +21,10 @@ public extension DotEncodable {
         var result: [String] = []
 
         result.append("digraph G {")
+        let indent = "    "
         
         for node in nodes {
-            var lineComponents: [String] = ["\t"]
+            var lineComponents: [String] = [indent]
             lineComponents.append(node.description)
             lineComponents.append(" ")
             if let attributes = dotNodeAttributes(node)?.attributes {
@@ -33,7 +34,7 @@ public extension DotEncodable {
         }
         
         for edge in edges {
-            var lineComponents: [String] = ["\t"]
+            var lineComponents: [String] = [indent]
             try! lineComponents.append(edgeTail(edge).description)
             lineComponents.append(" -> ")
             try! lineComponents.append(edgeHead(edge).description)
