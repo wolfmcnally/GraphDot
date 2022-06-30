@@ -9,18 +9,18 @@ struct DotTestGraph: EditableGraph {
     typealias EdgeData = EdgeAttributes
 
     typealias InnerGraph = Graph<NodeID, EdgeID, NodeData, EdgeData>
-    let innerGraph: InnerGraph
+    let graph: InnerGraph
 
     init() {
-        innerGraph = InnerGraph()
+        graph = InnerGraph()
     }
     
-    private init(innerGraph: InnerGraph) {
-        self.innerGraph = innerGraph
+    private init(graph: InnerGraph) {
+        self.graph = graph
     }
     
-    func copySettingInnerGraph(_ innerGraph: InnerGraph) -> Self {
-        Self(innerGraph: innerGraph)
+    func copySettingInner(graph: InnerGraph) -> Self {
+        Self(graph: graph)
     }
 
     init(edges: [(String, String, String)]) throws {
@@ -37,7 +37,7 @@ struct DotTestGraph: EditableGraph {
             graph = try graph.newEdge(label, tail: tail, head: head, data: .init(label: label))
         }
         
-        self.innerGraph = graph
+        self.graph = graph
     }
 }
 
