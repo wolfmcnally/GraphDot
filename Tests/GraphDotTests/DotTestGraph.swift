@@ -1,6 +1,6 @@
 import Foundation
-import WolfGraph
-import WolfGraphDot
+import Graph
+import GraphDot
 
 struct DotTestGraph: EditableGraph, EditableGraphWrapper {
     typealias NodeID = String

@@ -1,10 +1,10 @@
 import XCTest
-import WolfGraphDot
+import GraphDot
 
 // Docs: https://graphviz.org/doc/info/lang.html
 // Editor: http://magjac.com/graphviz-visual-editor/
 
-final class WolfGraphDotTests: XCTestCase {
+final class GraphDotTests: XCTestCase {
     func testDot() throws {
         var graph = DotTestGraph.makeDAG()
         try graph.newNode("Z")
