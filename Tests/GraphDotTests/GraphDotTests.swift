@@ -6,6 +6,44 @@ import GraphDot
 
 final class GraphDotTests: XCTestCase {
     func testDot() throws {
+        let graph = DotTestGraph.makeGraph()
+        let dot = """
+        digraph G {
+            A [label="A"]
+            B [label="B"]
+            C [label="C"]
+            D [label="D"]
+            E [label="E"]
+            F [label="F"]
+            G [label="G"]
+            H [label="H"]
+            I [label="I"]
+            J [label="J"]
+            K [label="K"]
+            A -> C [label="AC"]
+            A -> D [label="AD"]
+            A -> E [label="AE"]
+            B -> A [label="BA"]
+            B -> C [label="BC"]
+            B -> G [label="BG"]
+            C -> D [label="CD"]
+            E -> D [label="ED"]
+            F -> D [label="FD"]
+            F -> E [label="FE"]
+            G -> I [label="GI"]
+            H -> J [label="HJ"]
+            I -> B [label="IB"]
+            I -> C [label="IC"]
+            I -> K [label="IK"]
+            J -> A [label="JA"]
+            J -> E [label="JE"]
+            J -> F [label="JF"]
+        }
+        """
+        XCTAssertEqual(graph.dotFormat, dot)
+    }
+    
+    func testDotAttributes() throws {
         var graph = DotTestGraph.makeDAG()
         try graph.newNode("Z")
         try graph.newEdge("AZ", tail: "A", head: "Z", data: .init(label: "AZ"))
