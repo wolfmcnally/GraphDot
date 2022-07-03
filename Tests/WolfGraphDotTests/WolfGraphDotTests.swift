@@ -6,37 +6,36 @@ import WolfGraphDot
 
 final class WolfGraphDotTests: XCTestCase {
     func testDot() throws {
-        let graph = try DotTestGraph.makeDAG()
-            .newNode("Z")
-            .newEdge("AZ", tail: "A", head: "Z", data: .init(label: "AZ"))
-            .withNodeData("Z")
-        {
+        var graph = DotTestGraph.makeDAG()
+        try graph.newNode("Z")
+        try graph.newEdge("AZ", tail: "A", head: "Z", data: .init(label: "AZ"))
+        try graph.withNodeData("Z") {
             $0.label = "Zebra"
             $0.shape = .pentagon
         }
-        .withNodeData("A") {
+        try graph.withNodeData("A") {
             $0.color = .red
         }
-        .withNodeData("J") {
+        try graph.withNodeData("J") {
             $0.style = .filled
         }
-        .withEdgeData("AZ") {
+        try graph.withEdgeData("AZ") {
             $0.label = "Green"
             $0.color = .green
         }
-        .withEdgeData("JA") {
+        try graph.withEdgeData("JA") {
             $0.style = .bold
         }
-        .withEdgeData("AC") {
+        try graph.withEdgeData("AC") {
             $0.arrowDirection = .both
         }
-        .withEdgeData("BA") {
+        try graph.withEdgeData("BA") {
             $0.style = .bold
         }
-        .withEdgeData("IK") {
+        try graph.withEdgeData("IK") {
             $0.arrowHead = .box
         }
-        .withEdgeData("IC") {
+        try graph.withEdgeData("IC") {
             $0.arrowDirection = .both
             $0.arrowTail = "olboxrbox"
         }

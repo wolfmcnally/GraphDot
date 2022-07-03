@@ -2,14 +2,14 @@ import Foundation
 import WolfGraph
 import WolfGraphDot
 
-struct DotTestGraph: EditableGraph {
+struct DotTestGraph: EditableGraph, EditableGraphWrapper {
     typealias NodeID = String
     typealias EdgeID = String
     typealias NodeData = NodeAttributes
     typealias EdgeData = EdgeAttributes
 
     typealias InnerGraph = Graph<NodeID, EdgeID, NodeData, EdgeData>
-    let graph: InnerGraph
+    var graph: InnerGraph
 
     init() {
         graph = InnerGraph()
@@ -18,10 +18,6 @@ struct DotTestGraph: EditableGraph {
     private init(graph: InnerGraph) {
         self.graph = graph
     }
-    
-    func copySettingInner(graph: InnerGraph) -> Self {
-        Self(graph: graph)
-    }
 
     init(edges: [(String, String, String)]) throws {
         var graph = InnerGraph()
@@ -29,12 +25,12 @@ struct DotTestGraph: EditableGraph {
         for edge in edges {
             let (label, tail, head) = edge
             if graph.hasNoNode(tail) {
-                graph = try graph.newNode(tail, data: .init(label: tail))
+                try graph.newNode(tail, data: .init(label: tail))
             }
             if graph.hasNoNode(head) {
-                graph = try graph.newNode(head, data: .init(label: head))
+                try graph.newNode(head, data: .init(label: head))
             }
-            graph = try graph.newEdge(label, tail: tail, head: head, data: .init(label: label))
+            try graph.newEdge(label, tail: tail, head: head, data: .init(label: label))
         }
         
         self.graph = graph
