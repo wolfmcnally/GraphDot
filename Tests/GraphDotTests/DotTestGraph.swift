@@ -7,8 +7,9 @@ struct DotTestGraph: EditableGraph, EditableGraphWrapper {
     typealias EdgeID = String
     typealias NodeData = NodeAttributes
     typealias EdgeData = EdgeAttributes
+    typealias GraphData = Void
 
-    typealias InnerGraph = Graph<NodeID, EdgeID, NodeData, EdgeData, Void>
+    typealias InnerGraph = Graph<NodeID, EdgeID, NodeData, EdgeData, GraphData>
     var graph: InnerGraph
 
     init() {
