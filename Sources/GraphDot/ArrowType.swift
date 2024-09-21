@@ -1,6 +1,6 @@
 import Foundation
 
-public struct ArrowType: Hashable, ExpressibleByStringLiteral {
+public struct ArrowType: Hashable, ExpressibleByStringLiteral, Sendable {
     let type: String
     
     public init(_ type: String) {

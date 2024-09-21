@@ -1,9 +1,8 @@
 import Foundation
-import WolfBase
 
 // https://graphviz.org/doc/info/colors.html
 
-public struct Color: Hashable {
+public struct Color: Hashable, Sendable {
     public let schemeName: String?
     public let colorName: String
     
